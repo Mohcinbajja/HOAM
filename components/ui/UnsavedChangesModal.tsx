@@ -1,0 +1,35 @@
+import React from 'react';
+import Modal from './Modal';
+import Button from './Button';
+import Icon from './Icon';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { useData } from '../../contexts/DataContext';
+
+const UnsavedChangesModal: React.FC = () => {
+    const { t } = useLanguage();
+    const {
+        isUnsavedChangesModalOpen,
+        handleSaveChangesAndNavigate,
+        handleDiscardChangesAndNavigate,
+        handleCancelNavigation,
+    } = useData();
+
+    return (
+        <Modal isOpen={isUnsavedChangesModalOpen} onClose={handleCancelNavigation} title={t('unsaved_changes_title')}>
+            <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                    <Icon name="alert_triangle" className="h-8 w-8 text-yellow-500" />
+                </div>
+                <div className="flex-grow">
+                    <p className="text-gray-600 dark:text-gray-400 pt-1">{t('unsaved_changes_message')}</p>
+                </div>
+            </div>
+            <div className="mt-6 flex flex-col sm:flex-row-reverse sm:space-x-3 sm:space-x-reverse space-y-2 sm:space-y-0">
+                <Button onClick={handleSaveChangesAndNavigate} className="w-full sm:w-auto">{t('save_and_leave')}</Button>
+                <Button variant="danger" onClick={handleDiscardChangesAndNavigate} className="w-full sm:w-auto">{t('leave_without_saving')}</Button>
+                <Button variant="secondary" onClick={handleCancelNavigation} className="w-full sm:w-auto">{t('stay_on_page')}</Button>
+            </div>
+        </Modal>
+    );
+};
+export default UnsavedChangesModal;

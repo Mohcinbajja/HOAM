@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HOA Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+    
+    <!-- PDF & Excel Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react-dom/server": "https://aistudiocdn.com/react-dom@^19.1.1/server.browser",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1"
+  }
+}
+</script>
+<style>
+/* On-screen styling for report preview */
+@media screen {
+  .report-page {
+      box-sizing: border-box;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 1.27cm;
+      margin: 1rem auto;
+      border: 1px solid #D1D5DB;
+      background: white;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+  }
+  .report-page.report-landscape {
+      width: 297mm;
+      min-height: 210mm;
+  }
+  .report-page .report-body-group {
+      flex-grow: 1;
+  }
+  .report-page .report-header-group, .report-page .report-footer-group {
+      flex-shrink: 0;
+  }
+}
+
+
+/* Global print styles */
+@media print {
+  body {
+    background-color: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* Report-specific print layout */
+  .report-page {
+    width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    display: block !important;
+    page-break-after: always;
+  }
+  
+  .report-page:last-of-type {
+      page-break-after: auto;
+  }
+  
+  .report-header-group, .report-footer-group {
+      break-inside: avoid;
+  }
+}
+</style>
+</head>
+  <body class="bg-gray-100 dark:bg-gray-900">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
